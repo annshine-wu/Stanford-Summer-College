@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Stanford Map</title>
+<style>
+#frame{
+	border-top: 10px brown solid;
+	border-bottom: 10px brown solid;
+	border-left: 10px brown solid;
+	border-right: 10px brown solid;
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+#buttons{
+	float: right;
+	margin-right: 50px;
+}
+#up,#down{
+	width: 70px;
+}
+</style>
+</head>
+<body>
+	<div id = "buttons">
+		<form id = "zoom">
+			<input id = "in" type="button" value=" + ">
+			<input id = "out" type="button" value=" - ">
+		</form>
+		<br>
+		<form id = "scroll">
+			<input id = "up" type="button" value=" ↑ ">
+			<br>
+			<input id = "left" type="button" value=" ← ">
+			<input id = "right" type="button" value=" → ">
+			<br>
+			<input id = "down" type="button" value=" ↓ ">
+		</form>
+	</div>
+	<div id="frame">
+		<img id="map" src='map-l.gif' alt='stanford map'/>
+	</div>
+
+<script>
+
+var frame = document.getElementById("frame");
+frame.style.overflow = "hidden";
+
+var windowWidth = window.innerWidth;
+var windowHeight = window.innerHeight;
+var calculateWidth = windowWidth - 100 - 200;
+frame.style.width = calculateWidth.toString() + "px";
+var calculateHeight = windowHeight - 100;
+frame.style.height = calculateHeight.toString() + "px";
+
+window.addEventListener("resize",handleResize,false);
+
+function handleResize(){
+	var windowWidth = window.innerWidth;
+	var windowHeight = window.innerHeight;
+	var calculateWidth = windowWidth - 100 - 200;
+	frame.style.width = calculateWidth.toString() + "px";
+	var calculateHeight = windowHeight - 100;
+	frame.style.height = calculateHeight.toString() + "px";
+}
+
+var map = document.getElementById("map");
+map.style.position = "relative";
+map.style.left = "0px";
+map.style.top = "0px";
+
+moveMap(document.getElementById("map"));
+
+function moveMap(map) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  map.onmousedown = dragMouseDown;
+  function dragMouseDown(e) {
+    e.preventDefault();
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+  }
+  function elementDrag(e) {
+		map.style.cursor = "move";
+    e.preventDefault();
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    map.style.top = (parseInt(map.style.top) - pos2) + "px";
+    map.style.left = (parseInt(map.style.left) - pos1) + "px";
+  }
+  function closeDragElement() {
+		map.style.cursor = "default";
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
+document.getElementById("left").addEventListener("click", moveLeft);
+document.getElementById("right").addEventListener("click", moveRight);
+document.getElementById("up").addEventListener("click", moveUp);
+document.getElementById("down").addEventListener("click", moveDown);
+
+function getWidth(){
+	return parseInt(frame.style.width);
+}
+
+function getHeight(){
+	return parseInt(frame.style.height);
+}
+
+function moveLeft(){
+	map.style.left = (parseInt(map.style.left) + getWidth()/2) + "px";
+}
+function moveRight(){
+	map.style.left = (parseInt(map.style.left) - getWidth()/2) + "px";
+}
+function moveUp(){
+	map.style.top = (parseInt(map.style.top) + getHeight()/2) + "px";
+}
+function moveDown(){
+	map.style.top = (parseInt(map.style.top) - getHeight()/2) + "px";
+}
+
+map.addEventListener("dblclick",handleDblClick);
+
+function handleDblClick(evt){
+	var x = evt.clientX;
+	var y = evt.clientY;
+	var newTop = parseInt(map.style.top) + (getHeight()/2 - y + 35);
+	var newLeft = parseInt(map.style.left) + (getWidth()/2 - x + 35);
+	map.style.top = newTop + "px";
+	map.style.left = newLeft + "px";
+}
+
+document.getElementById("in").addEventListener("click", moveIn);
+document.getElementById("out").addEventListener("click", moveOut);
+
+var photoArray = [{filename: "map-s.gif", width: 1283, height: 997},
+	{filename: "map-m.gif", width: 2047, height: 1589},
+	{filename: "map-l.gif", width: 3063, height: 2373},
+	{filename: "map-xl.gif", width: 4084, height: 3164}];
+
+var images = [];
+for (var i = 0; i < photoArray.length; i++) {
+	images[i] = new Image();
+	images[i].src = photoArray[i].filename;
+}
+
+var index = 2;
+
+var prevMapWidth = photoArray[index].width;
+var prevMapHeight = photoArray[index].height;
+
+function moveOut(){
+	if(index > 0){
+		index--;
+		zoomMap();
+	}
+}
+
+function moveIn(){
+	if(index < photoArray.length){
+		index++;
+		zoomMap();
+	}
+}
+
+function zoomMap(){
+	var centerX = getWidth()/2;
+	var centerY = getHeight()/2;
+
+	var percentLeft = -1*(parseInt(map.style.left) - centerX)/prevMapWidth;
+	var newLeft = centerX - percentLeft * photoArray[index].width;
+
+	var percentTop = -1*(parseInt(map.style.top) - centerY)/prevMapHeight;
+	var newTop = centerY - percentTop * photoArray[index].height;
+
+	map.style.top = newTop + "px";
+	map.style.left = newLeft + "px";
+
+	//map.src = photoArray[index].filename;
+	map.src = images[index].src;
+
+	prevMapWidth = photoArray[index].width;
+	prevMapHeight = photoArray[index].height;
+}
+
+</script>
+</body>
+</html>
