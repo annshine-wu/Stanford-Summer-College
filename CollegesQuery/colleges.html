@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<link rel="stylesheet" type = "text/css" href="colleges.css">
+<title>Bay Area Colleges and Universities</title>
+<script src="colleges.js" defer></script>
+</head>
+<body>
+  <h1 id = "title">Bay Area Colleges and Universities</h1>
+  <table id = "displayTable">
+    <tr>
+      <th>Name</th>
+      <th>SAT High</th>
+      <th>SAT Low</th>
+      <th>Tuition</th>
+    </tr>
+    <tr>
+      <td>Stanford</td>
+      <td>1570</td>
+      <td>1380</td>
+      <td>44757</td>
+    </tr>
+    <tr>
+      <td>UC Berkeley</td>
+      <td>1500</td>
+      <td>1250</td>
+      <td>13844</td>
+    </tr>
+    <tr>
+      <td>UC Santa Cruz</td>
+      <td>1280</td>
+      <td>1000</td>
+      <td>13398</td>
+    </tr>
+    <tr>
+      <td>USF</td>
+      <td>1270</td>
+      <td>1070</td>
+      <td>41450</td>
+    </tr>
+    <tr>
+      <td>SCU</td>
+      <td>1380</td>
+      <td>1190</td>
+      <td>43812</td>
+    </tr>
+    <tr>
+      <td>Mills College</td>
+      <td>1250</td>
+      <td>1040</td>
+      <td>42918</td>
+    </tr>
+  </table>
+  <div id = "searchColumn">
+    <fieldset>
+      <p class = "formHeading">Search Criteria</p>
+      <form id = "searchForm">
+        <input class = "radio" type="radio" value="public" name="configuration">Public
+        <input class = "radio" type="radio" value="private" name="configuration" >Private
+        <input class = "radio" type="radio" value="dontcare" name="configuration" checked>Don't Care
+        <p>Maximum Tuition <span class = "input" ><input id = "maximumTuitionInput" type="text" value=""></span> </p>
+        <p class = "caption" >leave blank for don't care</p>
+        <p>Maximum High SAT <span class = "input"><input id = "highsatInput" type="text" value=""></span> </p>
+        <p class = "caption" >leave blank for don't care</p>
+        <p>Minimum Low SAT <span class = "input"><input id = "lowsatInput" type="text" value=""></span> </p>
+        <p class = "caption" >leave blank for don't care</p>
+      </form>
+    </fieldset>
+    <input id = "updateButton" type="button" value="Update">
+  </div>
+</body>
+</html>
