@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Stanford Gallery</title>
+<style>
+#caption {
+	padding: 10px;
+	box-sizing: border-box;
+	color: white;
+	font-size: 14pt;
+	font-family: sans-serif;
+	background-color: #008800;
+	opacity: 0.5;
+}
+</style>
+</head>
+<body>
+<div id="photoSection">
+	<div id="forwardOverlay"></div>
+	<div id="backwardOverlay"></div>
+	<img id='photo' src='memchu.jpg' alt='photo'/>
+	<div id="caption">
+		Stanford Memorial Church - the church used to have an 80' bell tower, which fell in the 1906 earthquake.
+	</div>
+</div>
+<script>
+"use strict";
+
+var photoSection = document.getElementById("photoSection");
+photoSection.style.width = "800px";
+photoSection.style.position = "relative";
+
+var currentImage = document.getElementById("photo");
+var currentIndex = 0;
+currentImage.style.height = "600px";
+currentImage.style.width = "800px";
+
+var caption = document.getElementById("caption");
+caption.style.width = "800px";
+
+var forward = document.getElementById("forwardOverlay");
+forward.style.position = "absolute";
+forward.style.right = "0px";
+forward.style.top = "0px";
+forward.style.height = "600px";
+forward.style.width = "400px";
+
+var backward = document.getElementById("backwardOverlay");
+backward.style.position = "absolute";
+backward.style.left = "0px";
+backward.style.top = "0px";
+backward.style.height = "600px";
+backward.style.width = "400px";
+
+function forwardPhoto(){
+	currentIndex++;
+	if(currentIndex == photoArray.length){
+		currentIndex = 0;
+	}
+	currentImage.src = photoArray[currentIndex].filename;
+	caption.innerHTML = photoArray[currentIndex].caption;
+}
+
+function backwardPhoto(){
+	currentIndex--;
+	if(currentIndex < 0){
+		currentIndex = photoArray.length - 1;
+	}
+	currentImage.src = photoArray[currentIndex].filename;
+	caption.innerHTML = photoArray[currentIndex].caption;
+}
+
+forward.addEventListener("click", forwardPhoto);
+backward.addEventListener("click", backwardPhoto);
+
+var photoArray = [
+		{filename: "memchu.jpg",
+		 caption: "Stanford Memorial Church - the church used to have an 80' bell tower, which fell in the 1906 earthquake."},
+		{filename: "quad.jpg",
+		 caption: "The Stanford Quad"},
+		{filename: "hoop.jpg",
+		 caption: "The <i>Red Hoop Fountain</i> with Green Library in the background."},
+		{filename: "memorial-court.jpg",
+		 caption: "Memorial Court (in the front of the Quad) with Rodin's <i>Burghers of Calais</i> statues."},
+		{filename: "gates.jpg",
+		 caption: "The Gates Building - home of Stanford Computer Science."},
+		{filename: "stone-river.jpg",
+		 caption: "The Stone River statue near the Cantor Arts Center (Stanford's own art museum)."},
+	];
+
+	var windowWidth = window.innerWidth;
+	var windowHeight = window.innerHeight;
+	var calculateLeft = windowWidth - 800;
+	calculateLeft = calculateLeft / 2;
+	photoSection.style.left = calculateLeft.toString() + "px";
+	var calculateTop = windowHeight - 600;
+	calculateTop = calculateTop / 2;
+	photoSection.style.top = calculateTop.toString() + "px";
+
+window.addEventListener("resize",handleResize,false);
+
+function handleResize(){
+	var windowWidth = window.innerWidth;
+	var windowHeight = window.innerHeight;
+	var calculateLeft = windowWidth - 800;
+	calculateLeft = calculateLeft / 2;
+	photoSection.style.left = calculateLeft.toString() + "px";
+	var calculateTop = windowHeight - 600;
+	calculateTop = calculateTop / 2;
+	photoSection.style.top = calculateTop.toString() + "px";
+}
+
+</script>
+</body>
+</html>
