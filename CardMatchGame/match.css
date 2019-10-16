@@ -1,0 +1,20 @@
+body {
+  display: flex;
+  flex-direction: row;
+}
+
+img{
+  padding: 10px;
+}
+
+#resetButton{
+  margin-top: 225px;
+  margin-left: 20px;
+}
+
+#spotOne { order: 1; }
+#spotTwo { order: 2; }
+#spotThree { order: 3; }
+#spotFour { order: 4; }
+#spotFive { order: 5; }
+#spotSix { order: 6; }
