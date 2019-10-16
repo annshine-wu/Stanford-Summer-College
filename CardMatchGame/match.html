@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<link rel="stylesheet" type = "text/css" href="match.css">
+<title>Matching</title>
+<script src="match.js" defer></script>
+</head>
+<body>
+  <div id = "spotOne" data-value = "one">
+    <img id = "cardOne" src = "back.png" alt = "one" onclick= "flipCard('cardOne', '1clubs.png', '0')">
+  </div>
+  <div id = "spotTwo" data-value = "two">
+    <img id = "cardTwo" src = "back.png" alt = "two" onclick= "flipCard('cardTwo', '2clubs.png', '1')">
+  </div>
+  <div id = "spotThree" data-value = "one">
+    <img id = "cardThree" src = "back.png" alt = "one" onclick= "flipCard('cardThree', '1hearts.png', '2')">
+  </div>
+  <div id = "spotFour" data-value = "two">
+    <img id = "cardFour" src = "back.png" alt = "two" onclick= "flipCard('cardFour', '2hearts.png', '3')">
+  </div>
+  <div id = "spotFive" data-value = "three">
+    <img id = "cardFive" src = "back.png" alt = "three" onclick= "flipCard('cardFive', '3clubs.png', '4')">
+  </div>
+  <div id = "spotSix" data-value = "three">
+    <img id = "cardSix" src = "back.png" alt = "three" onclick= "flipCard('cardSix', '3hearts.png', '5')">
+  </div>
+  <input id = "resetButton" type="button" value="Reset Game">
+</body>
+</html>
